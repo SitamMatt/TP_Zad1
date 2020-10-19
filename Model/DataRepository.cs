@@ -8,7 +8,7 @@ namespace Model
     {
         private readonly DataContext _context;
 
-        public DataRepository(IFiller filler)
+        public DataRepository(IDataFiller filler)
         {
 
         }

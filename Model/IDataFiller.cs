@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Model
 {
-    interface IFiller
+    interface IDataFiller
     {
-        void Fill();
+        void Fill(DataContext context);
     }
 }
