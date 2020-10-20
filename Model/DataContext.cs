@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Model
 {
-    class DataContext
+    public class DataContext
     {
         public List<Wykaz> Wykazy { get; set; }
         public Dictionary<string, Katalog> Katalogi {get;set;}

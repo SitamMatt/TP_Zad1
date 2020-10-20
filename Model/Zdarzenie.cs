@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model
 {
-    class Zdarzenie
+    public class Zdarzenie
     {
         public Wykaz Klient { get; set; }
         public DateTime DataWypożyczenia { get; set; }

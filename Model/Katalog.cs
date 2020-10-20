@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model
 {
-    class Katalog
+    public class Katalog
     {
         public DateTime DataWydania { get; set; }
         public string Autor { get; set; }

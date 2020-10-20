@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model
 {
-    class OpisStanu
+    public class OpisStanu
     {
         // być zmienić na zm. Katalog
         public string ISBN { get; set; }
