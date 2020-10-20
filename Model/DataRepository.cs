@@ -10,7 +10,8 @@ namespace Model
 
         public DataRepository(IDataFiller filler)
         {
-
+            _context = new DataContext();
+            filler.Fill(_context);
         }
     }
 }
