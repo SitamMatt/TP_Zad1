@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Model
 {
-    class DataRepository
+    public class DataRepository
     {
         private readonly DataContext _context;
 
@@ -65,6 +65,11 @@ namespace Model
         public void DeleteWykaz(Wykaz wykaz)
         {
             _context.Wykazy.Remove(wykaz);
+        }
+
+        public IEnumerable<Zdarzenie> GetAllZdarzenias()
+        {
+            return _context.Zdarzenia;
         }
     }
 }

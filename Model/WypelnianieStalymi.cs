@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Model
 {
-    class WypelnianieStalymi : IDataFiller
+    public class WypelnianieStalymi : IDataFiller
     {
         public void Fill(DataContext context)
         {
