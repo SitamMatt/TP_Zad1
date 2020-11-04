@@ -10,80 +10,77 @@ namespace Model
     {
         public void Fill(DataContext context)
         {
-            var wykazy = new List<Wykaz>();
-            var wykaz1 = new Wykaz
+            var clients = new List<Client>();
+            var wykaz1 = new Client
             {
                 ID = 1,
-                Imie = "Jan",
-                Nazwisko = "Kowalski"
+                Firstname = "Jan",
+                Lastname = "Kowalski",
             };
-            wykazy.Add(wykaz1);
-            var wykaz2 = new Wykaz
+            clients.Add(wykaz1);
+            var wykaz2 = new Client
             {
                 ID = 2,
-                Imie = "Jarosław",
-                Nazwisko = "Nowak"
+                Firstname = "Jarosław",
+                Lastname = "Nowak"
             };
-            wykazy.Add(wykaz2);
-            var katalogi = new Dictionary<string, Katalog>();
-            var katalog1 = new Katalog
+            clients.Add(wykaz2);
+            var katalogi = new Dictionary<string, Book>();
+            var katalog1 = new Book
             {
-                Autor = "Michał Milowicz",
-                DataWydania = DateTime.Parse("1999-02-01"),
-                LiczbaStron = 50,
-                Opis = "Świetna książka polecam"
+                Author = "Michał Milowicz",
+                ReleaseDate = DateTime.Parse("1999-02-01"),
+                PageCount = 50,
+                Description = "Świetna książka polecam"
             };
             katalogi["fff-aahh"] = katalog1;
-            var katalog2 = new Katalog
+            var katalog2 = new Book
             {
-                Autor = "Jan Marczewski",
-                DataWydania = DateTime.Parse("2001-06-09"),
-                LiczbaStron = 255,
-                Opis = "Super"
+                Author = "Jan Marczewski",
+                ReleaseDate = DateTime.Parse("2001-06-09"),
+                PageCount = 255,
+                Description = "Super"
             };
             katalogi["hhshasdad"] = katalog2;
-            var stany = new ObservableCollection<OpisStanu>();
-            var opis1 = new OpisStanu
+            var stany = new ObservableCollection<BookCopy>();
+            var opis1 = new BookCopy
             {
-                ID = 1,
-                ISBN = "fff-aahh",
-                DataZakupu = DateTime.Parse("2004-04-07")
+                CopyID = 1,
+                PurchaseDate = DateTime.Parse("2004-04-07")
             };
             stany.Add(opis1);
-            var opis2 = new OpisStanu
+            var opis2 = new BookCopy
             {
-                ID = 2,
-                ISBN = "hhshasdad",
-                DataZakupu = DateTime.Parse("2005-09-01")
+                CopyID = 2,
+                PurchaseDate = DateTime.Parse("2005-09-01")
             };
             stany.Add(opis2);
-            var opis3 = new OpisStanu
+            var opis3 = new BookCopy
             {
-                ID = 3,
-                ISBN = "fff-aahh",
-                DataZakupu = DateTime.Parse("2006-08-01")
+                CopyID = 3,
+                PurchaseDate = DateTime.Parse("2006-08-01")
             };
             stany.Add(opis3);
-            var zdarzenia = new ObservableCollection<Zdarzenie>();
-            var zdarz1 = new Zdarzenie
+            var zdarzenia = new ObservableCollection<BookCheckout>();
+            var zdarz1 = new BookCheckout
             {
-                DataWypożyczenia = DateTime.Parse("2018-04-01"),
-                DataZwrotu = DateTime.Parse("2018-06-01"),
-                Egzemplarz = opis1,
-                Klient = wykaz1
+                CheckoutDate = DateTime.Parse("2018-04-01"),
+                ReturnDate = DateTime.Parse("2018-06-01"),
+                BookCopy = opis1,
+                Client = wykaz1
             };
             zdarzenia.Add(zdarz1);
-            var zdarz2 = new Zdarzenie
+            var zdarz2 = new BookCheckout
             {
-                DataWypożyczenia = DateTime.Parse("2020-08-01"),
-                Egzemplarz = opis3,
-                Klient = wykaz2
+                CheckoutDate = DateTime.Parse("2020-08-01"),
+                BookCopy = opis3,
+                Client = wykaz2
             };
             zdarzenia.Add(zdarz2);
-            context.Wykazy = wykazy;
-            context.Katalogi = katalogi;
-            context.OpisyStanu = stany;
-            context.Zdarzenia = zdarzenia;
+            context.Clients = clients;
+            context.Books = katalogi;
+            context.BookCopies = stany;
+            context.Lendings = zdarzenia;
         }
     }
 }

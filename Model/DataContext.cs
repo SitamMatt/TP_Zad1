@@ -7,9 +7,9 @@ namespace Model
 {
     public class DataContext
     {
-        public List<Wykaz> Wykazy { get; set; }
-        public Dictionary<string, Katalog> Katalogi {get;set;}
-        public ObservableCollection<Zdarzenie> Zdarzenia { get; set; }      
-        public ObservableCollection<OpisStanu> OpisyStanu { get; set; }
+        public List<Client> Clients { get; set; }
+        public Dictionary<string, Book> Books {get;set;}
+        public ObservableCollection<BookCheckout> Lendings { get; set; }  
+        public ObservableCollection<BookCopy> BookCopies { get; set; }
     }
 }

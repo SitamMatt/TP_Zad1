@@ -15,61 +15,81 @@ namespace Model
             filler.Fill(_context);
         }
 
-        public void AddKatalog(Katalog katalog, String isbn)
+        public void AddClient(Client entity)
         {
-            _context.Katalogi.Add(isbn, katalog);
+            _context.Clients.Add(entity);
         }
 
-        public Katalog GetKatalog(String isbn)
+        public Client GetClient(int key)
         {
-            return _context.Katalogi[isbn];
+            return _context.Clients[key];
         }
 
-        public IEnumerable<Katalog> GetAllKatalog()
+        public void UpdateClient(int key, Client entity)
         {
-            return _context.Katalogi.Values;
+            _context.Clients[key] = entity;
         }
 
-        public void UpdateKatalog(String isbn, Katalog katalog)
+        public IEnumerable<Client> GetAllClient()
+        {
+            return _context.Clients;
+        }
+
+        public void AddKatalog(Book katalog, String isbn)
+        {
+            _context.Books.Add(isbn, katalog);
+        }
+
+        public Book GetKatalog(String isbn)
+        {
+            return _context.Books[isbn];
+        }
+
+        public IEnumerable<Book> GetAllKatalog()
+        {
+            return _context.Books.Values;
+        }
+
+        public void UpdateKatalog(String isbn, Book katalog)
         {
             //TODO: Upewnić się czy taka wartość istnieje w słowniku
-            _context.Katalogi[isbn] = katalog;
+            _context.Books[isbn] = katalog;
         }
 
         public void DeleteKatalog(String isbn)
         {
             //TODO: przemyśleć czy powinien przekazywać katalog czy klucz
-            _context.Katalogi.Remove(isbn);
+            _context.Books.Remove(isbn);
         }
 
-        public void AddWykaz(Wykaz wykaz)
+        public void AddWykaz(Client wykaz)
         {
-            _context.Wykazy.Add(wykaz);
+            _context.Clients.Add(wykaz);
         }
 
-        public Wykaz GetWykaz(int id)
+        public Client GetWykaz(int id)
         {
-            return _context.Wykazy.Find(w => w.ID == id);
+            return _context.Clients.Find(w => w.ID == id);
         }
 
-        public IEnumerable<Wykaz> GetAllWykaz()
+        public IEnumerable<Client> GetAllWykaz()
         {
-            return _context.Wykazy;
+            return _context.Clients;
         }
 
-        public void UpdateWykaz(Wykaz wykaz, int id)
+        public void UpdateWykaz(Client wykaz, int id)
         {
-            _context.Wykazy[id] = wykaz;
+            _context.Clients[id] = wykaz;
         }
 
-        public void DeleteWykaz(Wykaz wykaz)
+        public void DeleteWykaz(Client wykaz)
         {
-            _context.Wykazy.Remove(wykaz);
+            _context.Clients.Remove(wykaz);
         }
 
-        public IEnumerable<Zdarzenie> GetAllZdarzenias()
+        public IEnumerable<BookCheckout> GetAllZdarzenias()
         {
-            return _context.Zdarzenia;
+            return _context.Lendings;
         }
     }
 }

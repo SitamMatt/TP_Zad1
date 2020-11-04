@@ -15,18 +15,18 @@ namespace Model.Tests
         [Test]
         public void WykazAddTest()
         {
-            var wykaz = new Wykaz
+            var wykaz = new Client
             {
                 ID = 5,
-                Imie = "Jacek",
-                Nazwisko = "Robocznik"
+                Firstname = "Jacek",
+                Lastname = "Robocznik"
             };
             Assert.Null(_dataRepository.GetWykaz(5));
             _dataRepository.AddWykaz(wykaz);
             Assert.NotNull(_dataRepository.GetWykaz(5));
             var record = _dataRepository.GetWykaz(5);
-            Assert.AreEqual("Jacek", record.Imie);
-            Assert.AreEqual("Robocznik", record.Nazwisko);
+            Assert.AreEqual("Jacek", record.Firstname);
+            Assert.AreEqual("Robocznik", record.Lastname);
             Assert.AreEqual(5, record.ID);
         }
     }
