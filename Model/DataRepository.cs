@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Model
@@ -17,6 +18,10 @@ namespace Model
 
         public void AddClient(Client entity)
         {
+            if (_context.Clients.Contains(entity))
+            {
+                throw new DuplicatedItemException();
+            }
             _context.Clients.Add(entity);
         }
 
@@ -27,12 +32,28 @@ namespace Model
 
         public void UpdateClient(int key, Client entity)
         {
-            _context.Clients[key] = entity;
+            var originalClient = _context.Clients[key];
+            MapperHelper.Mapper.Map(entity, originalClient);
+        }
+
+        public void DeleteClient(Client client)
+        {
+            _context.Clients.Remove(client);
         }
 
         public IEnumerable<Client> GetAllClient()
         {
             return _context.Clients;
+        }
+
+        internal void AddCheckout(BookCheckout checkout)
+        {
+            _context.Lendings.Add(checkout);
+        }
+
+        internal BookCheckout FindBookCheckout(Func<BookCheckout, bool> predicate)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddKatalog(Book katalog, String isbn)
@@ -47,13 +68,15 @@ namespace Model
 
         public IEnumerable<Book> GetAllKatalog()
         {
+            //todo consider kvp return
             return _context.Books.Values;
         }
 
         public void UpdateKatalog(String isbn, Book katalog)
         {
+            var originalBook = _context.Books[isbn];
+            MapperHelper.Mapper.Map(katalog, originalBook);
             //TODO: Upewnić się czy taka wartość istnieje w słowniku
-            _context.Books[isbn] = katalog;
         }
 
         public void DeleteKatalog(String isbn)
@@ -62,34 +85,40 @@ namespace Model
             _context.Books.Remove(isbn);
         }
 
-        public void AddWykaz(Client wykaz)
+        public BookCopy GetBookCopy(int id)
         {
-            _context.Clients.Add(wykaz);
+            return _context.BookCopies.First(x => x.CopyID == id);
         }
 
-        public Client GetWykaz(int id)
+        private void ValidateBookCopy(BookCopy bookCopy)
         {
-            return _context.Clients.Find(w => w.ID == id);
+            if (_context.BookCopies.Contains(bookCopy))
+                throw new DuplicatedItemException();
+            if (_context.Books.ContainsValue(bookCopy.BookDetails))
+                throw new InvalidModelException();
+            if (_context.BookCopies.Any(x => x.CopyID == bookCopy.CopyID))
+                throw new InvalidModelException();
+        }
+        
+        public void AddBookCopy(BookCopy bookCopy)
+        {
+            ValidateBookCopy(bookCopy);
+            //todo consider validating it
+            bookCopy.Available = true;
+            _context.BookCopies.Add(bookCopy);
         }
 
-        public IEnumerable<Client> GetAllWykaz()
+        public void UpdateBookCopy(int id, BookCopy bookCopy)
         {
-            return _context.Clients;
+            //todo prevent id change
+            //todo observablecollection not triggered
+            var original = GetBookCopy(id);
+            MapperHelper.Mapper.Map(bookCopy, original);
         }
 
-        public void UpdateWykaz(Client wykaz, int id)
+        public void DeleteBookCopy(BookCopy bookCopy)
         {
-            _context.Clients[id] = wykaz;
-        }
-
-        public void DeleteWykaz(Client wykaz)
-        {
-            _context.Clients.Remove(wykaz);
-        }
-
-        public IEnumerable<BookCheckout> GetAllZdarzenias()
-        {
-            return _context.Lendings;
+            _context.BookCopies.Remove(bookCopy);
         }
     }
 }

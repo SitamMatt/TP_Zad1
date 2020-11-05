@@ -16,17 +16,37 @@ namespace Model
 
         public void AddClient(string firstname, string lastname)
         {
-            
+            var client = new Client
+            {
+                Firstname = firstname,
+                Lastname = lastname
+            };
+            dataRepository.AddClient(client);
         }
 
         public void CheckoutBook(Client client, BookCopy bookCopy)
         {
-            throw new NotImplementedException();
+            var clientExists = dataRepository.GetClient(client.ID);
+            var copyExists = dataRepository.GetBookCopy(bookCopy.CopyID);
+            if (clientExists != null && copyExists != null && copyExists.Available)
+            {
+                var checkout = new BookCheckout
+                {
+                    BookCopy = copyExists,
+                    Client = clientExists,
+                    CheckoutDate = DateTime.Now
+                };
+                dataRepository.AddCheckout(checkout);
+            }
         }
 
         public void ReturnBook(BookCopy bookCopy)
         {
-            throw new NotImplementedException();
+            var checkout = dataRepository.FindBookCheckout(x => x.BookCopy.CopyID == bookCopy.CopyID);
+            if (!checkout.BookCopy.Available)
+            {
+
+            }
         }
 
         public void ReturnBook(BookCheckout lending)

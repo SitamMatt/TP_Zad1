@@ -10,5 +10,6 @@ namespace Model
         public Book BookDetails { get; set; }
         public int CopyID { get; set; }
         public DateTime PurchaseDate { get; set; }
+        public bool Available { get; set; }
     }
 }
