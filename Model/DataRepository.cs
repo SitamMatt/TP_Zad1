@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Model
 {
-    public class DataRepository
+    public partial class DataRepository
     {
         private readonly DataContext _context;
 
@@ -83,42 +83,6 @@ namespace Model
         {
             //TODO: przemyśleć czy powinien przekazywać katalog czy klucz
             _context.Books.Remove(isbn);
-        }
-
-        public BookCopy GetBookCopy(int id)
-        {
-            return _context.BookCopies.First(x => x.CopyID == id);
-        }
-
-        private void ValidateBookCopy(BookCopy bookCopy)
-        {
-            if (_context.BookCopies.Contains(bookCopy))
-                throw new DuplicatedItemException();
-            if (_context.Books.ContainsValue(bookCopy.BookDetails))
-                throw new InvalidModelException();
-            if (_context.BookCopies.Any(x => x.CopyID == bookCopy.CopyID))
-                throw new InvalidModelException();
-        }
-        
-        public void AddBookCopy(BookCopy bookCopy)
-        {
-            ValidateBookCopy(bookCopy);
-            //todo consider validating it
-            bookCopy.Available = true;
-            _context.BookCopies.Add(bookCopy);
-        }
-
-        public void UpdateBookCopy(int id, BookCopy bookCopy)
-        {
-            //todo prevent id change
-            //todo observablecollection not triggered
-            var original = GetBookCopy(id);
-            MapperHelper.Mapper.Map(bookCopy, original);
-        }
-
-        public void DeleteBookCopy(BookCopy bookCopy)
-        {
-            _context.BookCopies.Remove(bookCopy);
         }
     }
 }

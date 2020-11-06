@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Model
 {
     [Serializable]
-    internal class InvalidModelException : Exception
+    public  class InvalidModelException : Exception
     {
         public InvalidModelException()
         {
