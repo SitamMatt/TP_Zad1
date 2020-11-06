@@ -30,6 +30,18 @@ namespace Model
             return _context.Clients[key];
         }
 
+        public Client GetClientById(int ID)
+        {
+            foreach (Client element in _context.Clients)
+            {
+                if (element.ID == ID)
+                {
+                    return element;
+                }
+            }
+            return null;
+        }
+
         public void UpdateClient(int key, Client entity)
         {
             var originalClient = _context.Clients[key];
@@ -44,6 +56,32 @@ namespace Model
         public IEnumerable<Client> GetAllClient()
         {
             return _context.Clients;
+        }
+
+        public void AddBook(String isbn, Book book)
+        {
+            _context.Books.Add(isbn, book);
+        }
+
+        public Book GetBook(String isbn)
+        {
+            return _context.Books[isbn];
+        }
+
+        public void DeleteBook(String isbn)
+        {
+            _context.Books.Remove(isbn);
+        }
+
+        public void UpdateBook(String isbn, Book book)
+        {
+            var originalBook = _context.Books[isbn];
+            MapperHelper.Mapper.Map(book, originalBook);
+        }
+
+        public IEnumerable<Book> GetBooksAll()
+        {
+            return _context.Books.Values;
         }
 
         internal void AddCheckout(BookCheckout checkout)
