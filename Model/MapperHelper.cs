@@ -10,8 +10,13 @@ namespace Model
         static MapperHelper()
         {
             config = new MapperConfiguration(
-                cfg => cfg.CreateMap<Client, Client>()
-            );
+                cfg =>
+                {
+                    cfg.CreateMap<Client, Client>();
+                    cfg.CreateMap<Book, Book>();
+                    cfg.CreateMap<BookCopy, BookCopy>();
+                    cfg.CreateMap<BookCheckout, BookCheckout>();
+                });
             Mapper = config.CreateMapper();
         }
 
