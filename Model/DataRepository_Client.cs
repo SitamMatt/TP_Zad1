@@ -10,15 +10,12 @@ namespace Model
         {
             if (_context.Clients.Contains(entity))
                 throw new DuplicatedItemException();
-           /* if (GetClientById(entity.ID) != null)
-                throw new DuplicatedItemException();*/
+           if (GetClientById(entity.ID) != null)
+                throw new DuplicatedItemException();
         }
         public void AddClient(Client entity)
         {
-            if (_context.Clients.Contains(entity))
-            {
-                throw new DuplicatedItemException();
-            }
+            ValidateClient(entity);
             _context.Clients.Add(entity);
         }
 
