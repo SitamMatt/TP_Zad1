@@ -61,3 +61,4 @@ public class BookCheckout
 * Client - not null, Client reference must exist in context
 * BookCopy - not null, BookCopy reference must exist in context
 * ReturnDate - if specified the BookCopy must be available
+* CheckoutDate < ReturnDate
