@@ -26,7 +26,6 @@ namespace Model
 
         public void DeleteBook(String isbn)
         {
-            ValidateBook(isbn);
             _context.Books.Remove(isbn);
         }
 
