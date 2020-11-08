@@ -5,8 +5,15 @@ namespace Model.Data.Events
 {
     public abstract class BookEvent
     {
-        public Client Client { get; set; }
-        public BookCopy BookCopy { get; set; }
-        public DateTime Date { get; set; }
+        protected BookEvent(Client client, BookCopy bookCopy, DateTime date)
+        {
+            this.Client = client;
+            this.BookCopy = bookCopy;
+            this.Date = date;
+        }
+
+        public Client Client { get; }
+        public BookCopy BookCopy { get; }
+        public DateTime Date { get; }
     }
 }

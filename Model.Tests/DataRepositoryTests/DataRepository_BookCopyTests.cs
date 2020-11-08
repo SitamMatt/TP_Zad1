@@ -23,7 +23,8 @@ namespace Model.Tests
 
         private BookCopy copy1 = new BookCopy
         {
-            CopyID = 5,
+            Available = true,
+            PurchaseDate = DateTime.UtcNow
         };
 
         #endregion test data
@@ -34,19 +35,21 @@ namespace Model.Tests
             DataContext context = new DataContext();
             var builder = new ContextBuilder();
             DataRepository repository = new DataRepository(builder);
-            Assert.Throws<InvalidModelException>(() => repository.AddBookCopy(copy1));
+            var bookCopyWithoutDetail = copy1.Clone();
+            Assert.Throws<InvalidModelException>(() => repository.AddBookCopy(bookCopyWithoutDetail));
         }
 
         [Test]
-        public void AddBookCopy_DuplicatedIdShouldThrow(){
+        public void AddBookCopy_DuplicatedItemShouldThrow(){
             DataContext context= new DataContext();
             var book = book1.Clone();
-            var copy = copy1.CloneWith(x => x.BookDetails, book);
+            var bookCopy = copy1.Clone();
             var builder = new ContextBuilder()
                 .AddBook("isb-666", book)
-                .AddBookCopy("isb-666", copy1.Clone());
+                .AddBookCopy("isb-666", bookCopy);
             DataRepository repository = new DataRepository(builder);
-            Assert.Throws<DuplicatedItemException>(() => repository.AddBookCopy(copy));
+            var duplicatedCopy = bookCopy.Clone();
+            Assert.Throws<DuplicatedItemException>(() => repository.AddBookCopy(duplicatedCopy));
         }
 
         [Test]
@@ -55,8 +58,9 @@ namespace Model.Tests
             var builder = new ContextBuilder()
             .AddBook("isb-666", book1.Clone());
             DataRepository repository = new DataRepository(builder);
-            var copy = copy1.CloneWith(x=>x.BookDetails, book1.CloneWith(x=>x.Title, "Koniec"));
-            Assert.Throws<InvalidModelException>(() => repository.AddBookCopy(copy));
+            var bookNotExistingInContext = book1.CloneWith(x=>x.Title, "Koniec");
+            var invalidBookCopy = copy1.CloneWith(x=>x.BookDetails, bookNotExistingInContext);
+            Assert.Throws<InvalidModelException>(() => repository.AddBookCopy(invalidBookCopy));
         }
     }
 }

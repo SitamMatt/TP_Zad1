@@ -7,15 +7,18 @@ namespace Model.Repository
 {
     public partial class DataRepository
     {
-        public void ValidateBookEvent(BookEvent bookEvent)
+        private void ValidateBookEvent(BookEvent bookEvent)
         {
-            #region references validation
             if (!_context.Clients.Contains(bookEvent.Client))
                 throw new InvalidModelException();
             if (!_context.BookCopies.Contains(bookEvent.BookCopy))
                 throw new InvalidModelException();
-            #endregion
         }
+
+        public BookEvent GetBookEvent(int index){
+            return _context.Events[index];
+        }
+
         public void AddBookEvent(BookEvent bookEvent)
         {
             ValidateBookEvent(bookEvent);
@@ -39,18 +42,6 @@ namespace Model.Repository
                     throw new UnknownEventException();
             }
             _context.Events.Add(bookEvent);
-        }
-
-        public BookEvent FindBookEvent(Func<BookEvent, bool> predicate)
-        {
-            throw new NotImplementedException(); // todo: implementation
-        }
-
-        //todo events should be immutable
-        public void UpdateCheckout(BookEvent bookEvent, int key)
-        {
-            var originalCheckout = _context.Lendings[key];
-            MapperHelper.Mapper.Map(bookEvent, originalCheckout);
         }
 
         public void DeleteCheckout(BookEvent bookEvent)

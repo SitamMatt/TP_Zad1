@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model.Data;
+using Model.Exceptions;
 
 namespace Model.Repository
 {
     public partial class DataRepository
     {
-        private void ValidateBook(String isbn)
-        {
-            if (_context.Books.ContainsKey(isbn))
-                throw new DuplicatedItemException();
-           // TODO: zastanowić się w jakich jeszcze przypadkach rzucać wyjątek
-        }
         public void AddBook(String isbn, Book book)
         {
-            ValidateBook(isbn);
+            if (_context.Books.ContainsKey(isbn))
+                throw new BookAlreadyExistException();
             _context.Books.Add(isbn, book);
         }
 
@@ -36,10 +32,9 @@ namespace Model.Repository
             MapperHelper.Mapper.Map(book, originalBook);
         }
 
-        public IEnumerable<Book> GetBooksAll()
+        public IEnumerable<Book> GetAllBooks()
         {
             return _context.Books.Values;
         }
-
     }
 }

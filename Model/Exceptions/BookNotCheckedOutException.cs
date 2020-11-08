@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Model
 {
     [Serializable]
-    internal class BookNotCheckedOutException : Exception
+    public class BookNotCheckedOutException : Exception
     {
         public BookNotCheckedOutException()
         {

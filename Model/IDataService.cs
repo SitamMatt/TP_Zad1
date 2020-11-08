@@ -11,8 +11,6 @@ namespace Model
 
         void ReturnBook(BookCopy bookCopy);
 
-        void ReturnBook(BookCheckout lending);
-
         void GetAllBookCopies(Book book);
 
         void GetAllBookCopies(string isbn);

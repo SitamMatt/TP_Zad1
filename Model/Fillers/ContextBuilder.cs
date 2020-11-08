@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Model.Data;
+using Model.Data.Events;
 
 namespace Model.Fillers
 {
@@ -11,11 +12,12 @@ namespace Model.Fillers
     {
         private List<Client> Clients = new List<Client>();
         private Dictionary<string, Book> Books = new Dictionary<string, Book>();
-        private ObservableCollection<BookCheckout> Lendings = new ObservableCollection<BookCheckout>();
         private ObservableCollection<BookCopy> BookCopies = new ObservableCollection<BookCopy>();
+        public ObservableCollection<BookEvent> Events { get; set; }
+
         public void Fill(DataContext context)
         {
-            context.Lendings = Lendings;
+            context.Events = Events;
             context.BookCopies = BookCopies;
             context.Clients = Clients;
             context.Books = Books;
@@ -41,13 +43,19 @@ namespace Model.Fillers
             return this;
         }
 
-        public ContextBuilder AddBookCheckout(int copyId, int clientId, BookCheckout bookCheckout)
-        {
-            var copy = BookCopies.First(x => x.CopyID == copyId);
-            var client = Clients.First(x => x.ID == clientId);
-            bookCheckout.BookCopy = copy;
-            bookCheckout.Client = client;
-            Lendings.Add(bookCheckout);
+        public ContextBuilder AddReturnEvent(Client client, BookCopy book){
+            var bookEvent = new BookReturnEvent(client, book, DateTime.Now);
+            Events.Add(bookEvent);
+            return this;
+        }
+
+        public ContextBuilder AddCheckoutEvent(Client client, BookCopy book){
+            var bookEvent = new BookCheckoutEvent(client, book, DateTime.Now);
+            Events.Add(bookEvent);
+            return this;
+        }
+        public ContextBuilder AddBookEvent(BookEvent bookEvent){
+            Events.Add(bookEvent);
             return this;
         }
     }

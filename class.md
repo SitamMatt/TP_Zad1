@@ -48,17 +48,26 @@ public class BookCopy
 ## BookCheckout
 
 ```csharp
-public class BookCheckout
+public abstract class BookEvent
 {
-    public Client Client { get; set; }
-    public BookCopy BookCopy { get; set; }
-    public DateTime CheckoutDate { get; set; }
-    //TODO check if DateTime can be null  
-    public DateTime ReturnDate { get; set; }
+    protected BookEvent(Client client, BookCopy bookCopy, DateTime date)
+    {
+        this.Client = client;
+        this.BookCopy = bookCopy;
+        this.Date = date;
+    }
+
+    public Client Client { get; }
+    public BookCopy BookCopy { get; }
+    public DateTime Date { get; }
 }
+
+public class BookReturnEvent : BookEvent {}
+
+public class BookCheckoutEvent : BookEvent {}
 ```
 
 * Client - not null, Client reference must exist in context
 * BookCopy - not null, BookCopy reference must exist in context
-* ReturnDate - if specified the BookCopy must be available
 * CheckoutDate < ReturnDate
+* Availability of BookCopy is determined by existing of those events

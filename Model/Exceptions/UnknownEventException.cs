@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Model
 {
     [Serializable]
-    internal class UnknownEventException : Exception
+    public class UnknownEventException : Exception
     {
         public UnknownEventException()
         {

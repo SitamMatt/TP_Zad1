@@ -10,7 +10,7 @@ namespace Model.Repository
     {
         public BookCopy GetBookCopy(int id)
         {
-            return _context.BookCopies.First(x => x.CopyID == id);
+            return _context.BookCopies[id];
         }
 
         private void ValidateBookCopy(BookCopy bookCopy)
@@ -19,14 +19,11 @@ namespace Model.Repository
                 throw new DuplicatedItemException();
             if (!_context.Books.ContainsValue(bookCopy.BookDetails))
                 throw new InvalidModelException();
-            if (_context.BookCopies.Any(x => x.CopyID == bookCopy.CopyID))
-                throw new DuplicatedItemException();
         }
 
         public void AddBookCopy(BookCopy bookCopy)
         {
             ValidateBookCopy(bookCopy);
-            //todo consider validating it
             bookCopy.Available = true;
             _context.BookCopies.Add(bookCopy);
         }

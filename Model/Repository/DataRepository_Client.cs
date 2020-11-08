@@ -11,9 +11,8 @@ namespace Model.Repository
         {
             if (_context.Clients.Contains(entity))
                 throw new DuplicatedItemException();
-           if (GetClientById(entity.ID) != null)
-                throw new DuplicatedItemException();
         }
+
         public void AddClient(Client entity)
         {
             ValidateClient(entity);
@@ -23,18 +22,6 @@ namespace Model.Repository
         public Client GetClient(int key)
         {
             return _context.Clients[key];
-        }
-
-        public Client GetClientById(int ID)
-        {
-            foreach (Client element in _context.Clients)
-            {
-                if (element.ID == ID)
-                {
-                    return element;
-                }
-            }
-            return null;
         }
 
         public void UpdateClient(int key, Client entity)

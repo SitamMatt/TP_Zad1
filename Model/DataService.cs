@@ -29,27 +29,33 @@ namespace Model
 
         public void CheckoutBook(Client client, BookCopy bookCopy)
         {
-            var bookEvent = new BookCheckoutEvent{
-                Date = DateTime.UtcNow,
-                BookCopy = bookCopy,
-                Client = client
-            };
+            var bookEvent = new BookCheckoutEvent(
+                client,
+                bookCopy,
+                DateTime.UtcNow
+            );
             dataRepository.AddBookEvent(bookEvent);
         }
 
         public void ReturnBook(BookCopy bookCopy)
         {
-            var bookEvent = new BookReturnEvent{
-                Date = DateTime.UtcNow,
-                BookCopy = bookCopy,
-            };
+            var checkoutEvenet = dataRepository.GetAllBookEvents()
+            .Where(x => x is BookCheckoutEvent && x.BookCopy == bookCopy)
+            .OrderByDescending(x => x.Date)
+            .FirstOrDefault();
+            var bookEvent = new BookReturnEvent
+            (
+                checkoutEvenet.Client,
+                bookCopy,
+                DateTime.UtcNow
+            );
             dataRepository.AddBookEvent(bookEvent);
         }
 
         public IEnumerable<BookCopy> GetAllBookCopies(Book book)
         {
             return dataRepository.GetAllBookCopies()
-            .Where(x=>x.BookDetails == book);
+            .Where(x => x.BookDetails == book);
         }
 
         public IEnumerable<BookCopy> GetAllBookCopies(string isbn)
@@ -66,23 +72,23 @@ namespace Model
             .Cast<BookCheckoutEvent>();
         }
 
-        public void GetAllBooks()
+        public IEnumerable<Book> GetAllBooks()
         {
-            throw new NotImplementedException();
+            return dataRepository.GetAllBooks();
         }
 
         public IEnumerable<Book> GetAvailableBooks()
         {
             return dataRepository.GetAllBookCopies()
-            .Where(x=>x.Available)
-            .Select(x=>x.BookDetails)
+            .Where(x => x.Available)
+            .Select(x => x.BookDetails)
             .Distinct();
         }
 
         public bool IsBookAvailable(Book book)
         {
             return dataRepository.GetAllBookCopies()
-            .Any(x=>x.BookDetails == book && x.Available);
+            .Any(x => x.BookDetails == book && x.Available);
         }
 
         public bool IsBookAvailable(string isbn)
@@ -93,11 +99,18 @@ namespace Model
 
         public void GetClientsHoldingCopyFor(TimeSpan duration)
         {
+            // var returns = dataRepository.GetAllBookEvents().Where(x => x is BookReturnEvent);
+            // var checkouts = dataRepository.GetAllBookEvents().Where(x=>x is BookCheckoutEvent)
+            // .Where(x => returns.Where(e=>e.Date > (x.Date + duration)).Min());
 
         }
 
-        public void GetAllRentalsForClient(Client client)
+        public void GetAllCopiesCheckedOutByClient(Client client)
         {
+            dataRepository.GetAllBookEvents()
+            .Where(x=>x is BookCheckoutEvent && x.Client == client)
+            .Select(x=>x.BookCopy)
+            .Distinct();
         }
     }
 }

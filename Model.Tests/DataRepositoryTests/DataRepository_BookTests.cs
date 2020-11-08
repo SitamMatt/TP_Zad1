@@ -34,9 +34,9 @@ namespace Model.Tests
         public void DuplicatedItemTest()
         {
             DataContext context = new DataContext();
-            var builder = new ContextBuilder();
+            var builder = new ContextBuilder()
+            .AddBook("978-2-21-15432-0", book1);
             DataRepository repository = new DataRepository(builder);
-            repository.AddBook("978-2-21-15432-0", book1);
             Assert.Throws<DuplicatedItemException>(() => repository.AddBook("978-2-21-15432-0", book2));
         }
 
@@ -44,12 +44,13 @@ namespace Model.Tests
         public void AddBookTest()
         {
             DataContext context = new DataContext();
-            var builder = new ContextBuilder();
+            var builder = new ContextBuilder()
+            .AddBook("978-2-21-15432-0" ,book1);
             DataRepository repository = new DataRepository(builder);
-            repository.AddBook("978-2-21-15432-0" ,book1);
             Assert.AreEqual(repository.GetBook("978-2-21-15432-0"), book1);
         }
 
+        //todo 
         [Test]
         public void DeleteBookTest()
         {
@@ -61,6 +62,7 @@ namespace Model.Tests
             Assert.Throws<KeyNotFoundException>(() =>repository.GetBook("978-2-21-15432-0")); // TODO:consider is it correct
         }
 
+        //todo
         [Test]
         public void UpdateBookTest()
         {
