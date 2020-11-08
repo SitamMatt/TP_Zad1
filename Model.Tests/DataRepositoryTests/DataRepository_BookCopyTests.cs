@@ -51,7 +51,7 @@ namespace Model.Tests
                 .AddBook("isb-666", book)
                 .AddBookCopy("isb-666", bookCopy);
             DataRepository repository = new DataRepository(builder);
-            var duplicatedCopy = bookCopy.Clone();
+            var duplicatedCopy = bookCopy;
             Assert.Throws<DuplicatedItemException>(() => repository.AddBookCopy(duplicatedCopy));
         }
 

@@ -8,7 +8,7 @@ using Model.Fillers;
 
 namespace Model.Repository
 {
-    public partial class DataRepository
+    public partial class DataRepository : IDataRepository
     {
         private readonly DataContext _context;
 

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using Model.Data;
 using Model.Data.Events;
+using Model.Fillers;
+using Utils;
 
 namespace Model.Tests
 {
@@ -13,7 +15,7 @@ namespace Model.Tests
         private List<Client> Clients = new List<Client>();
         private Dictionary<string, Book> Books = new Dictionary<string, Book>();
         private ObservableCollection<BookCopy> BookCopies = new ObservableCollection<BookCopy>();
-        public ObservableCollection<BookEvent> Events { get; set; }
+        public ObservableCollection<BookEvent> Events = new ObservableCollection<BookEvent>();
 
         public void Fill(DataContext context)
         {
@@ -38,7 +40,8 @@ namespace Model.Tests
         public ContextBuilder AddBookCopy(string bookKey, BookCopy bookCopy)
         {
             var book = Books[bookKey];
-            bookCopy.BookDetails = book;
+            bookCopy.With(x => x.BookDetails, book);
+            bookCopy.Available = true;
             BookCopies.Add(bookCopy);
             return this;
         }
@@ -51,6 +54,7 @@ namespace Model.Tests
 
         public ContextBuilder AddCheckoutEvent(Client client, BookCopy book){
             var bookEvent = new BookCheckoutEvent(client, book, DateTime.Now);
+            book.Available = false;
             Events.Add(bookEvent);
             return this;
         }

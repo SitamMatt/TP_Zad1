@@ -9,7 +9,7 @@ namespace Model.Data
             this.BookDetails = bookDetails;
             this.PurchaseDate = purchaseDate;
         }
-        public Book BookDetails { get; }
+        public Book BookDetails { get; private set; }
         public DateTime PurchaseDate { get; }
         public bool Available { get; set; }
     }

@@ -117,10 +117,10 @@ namespace Model.Tests
             .AddClient(client1)
             .AddBookCopy("isbn-666", copy1);
             var repository = new DataRepository(builder);
-            Assert.Equals(true, copy1.Available);
+            Assert.AreEqual(true, copy1.Available);
             var bookEvent = new BookCheckoutEvent(client1, copy1, DateTime.Now);
             repository.AddBookEvent(bookEvent);
-            Assert.Equals(false, copy1.Available);
+            Assert.AreEqual(false, copy1.Available);
         }
 
         [Test]
@@ -145,13 +145,13 @@ namespace Model.Tests
             .AddClient(client1)
             .AddBookCopy("isbn-666", copy1);
             var repository = new DataRepository(builder);
-            Assert.Equals(true, copy1.Available);
+            Assert.AreEqual(true, copy1.Available);
             var bookEvent = new BookCheckoutEvent(client1, copy1, DateTime.Now);
             repository.AddBookEvent(bookEvent);
-            Assert.Equals(false, copy1.Available);
+            Assert.AreEqual(false, copy1.Available);
             var bookReturnEvent = new BookReturnEvent(client1, copy1, DateTime.Now);
             repository.AddBookEvent(bookReturnEvent);
-            Assert.Equals(true, copy1.Available);
+            Assert.AreEqual(true, copy1.Available);
         }
 
         [Test]
@@ -193,7 +193,7 @@ namespace Model.Tests
             .AddBookCopy("isbn-666", copy1)
             .AddBookEvent(event1);
             var repository = new DataRepository(builder);
-            Assert.Equals(event1, repository.GetBookEvent(0));
+            Assert.AreEqual(event1, repository.GetBookEvent(0));
         }
 
         private class CustomBookEvent : BookEvent

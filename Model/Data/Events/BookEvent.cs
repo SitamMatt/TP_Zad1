@@ -12,8 +12,8 @@ namespace Model.Data.Events
             this.Date = date;
         }
 
-        public Client Client { get; }
-        public BookCopy BookCopy { get; }
+        public Client Client { get; private set; }
+        public BookCopy BookCopy { get; private set; }
         public DateTime Date { get; }
     }
 }

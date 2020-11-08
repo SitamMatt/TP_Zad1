@@ -9,11 +9,11 @@ using Model.Repository;
 using Utils;
 namespace Model
 {
-    public abstract class DataService
+    public class DataService
     {
-        private readonly DataRepository dataRepository;
+        private readonly IDataRepository dataRepository;
 
-        public DataService(DataRepository dataRepository)
+        public DataService(IDataRepository dataRepository)
         {
             this.dataRepository = dataRepository;
         }
