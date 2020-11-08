@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Model.Data.Events;
 
-namespace Model
+namespace Model.Repository
 {
     public partial class DataRepository
     {

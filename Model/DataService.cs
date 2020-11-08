@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Model.Data;
 using Model.Data.Events;
+using Model.Repository;
 using Utils;
 namespace Model
 {
-    public abstract class DataService : IDataService
+    public abstract class DataService
     {
         private readonly DataRepository dataRepository;
 

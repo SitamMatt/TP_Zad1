@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model
+namespace Model.Repository
 {
     public partial class DataRepository
     {

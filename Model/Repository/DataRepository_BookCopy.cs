@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Model.Data;
 
-namespace Model
+namespace Model.Repository
 {
     public partial class DataRepository
     {

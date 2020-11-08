@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Model.Data;
 using Model.Fillers;
+using Model.Repository;
 using NUnit.Framework;
 
 namespace Model.Tests

@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Model.Data;
 
-namespace Model
+namespace Model.Fillers
 {
-    class DataFiller
+    class RandomDataFiller
     {
-        private String[] firstNames = { "Adam", "Albert", "Aleksander", "Andrzej", "Antoni", "Bartłomiej", "Bronisław", "Dariusz", 
+        private string[] firstNames = { "Adam", "Albert", "Aleksander", "Andrzej", "Antoni", "Bartłomiej", "Bronisław", "Dariusz",
         "Dawid", "Dominik", "Filip"};
-        private String[] lastNames = { "Adamiak", "Boryszewski", "Dąbrowski", "Frączczak", "Gołąb" };
-        private String[] titles = { "Duma i uprzedzenie", "Ania z Zielonego Wzgórza", "Władca Pierścieni", "Lśnienie", "Zielona Mila", "Don Kichot",
+        private string[] lastNames = { "Adamiak", "Boryszewski", "Dąbrowski", "Frączczak", "Gołąb" };
+        private string[] titles = { "Duma i uprzedzenie", "Ania z Zielonego Wzgórza", "Władca Pierścieni", "Lśnienie", "Zielona Mila", "Don Kichot",
         "Przygody Tomka Sawyera", "Podróże Guliwera", "Podróż do wnętrza Ziemi", "Wichrowe Wzgórza"};
 
         private Random rnd = new Random();

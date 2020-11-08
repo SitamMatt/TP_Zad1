@@ -1,3 +1,6 @@
+using Model.Data;
+using Model.Fillers;
+using Model.Repository;
 using NUnit.Framework;
 
 namespace Model.Tests
@@ -9,7 +12,7 @@ namespace Model.Tests
         [SetUp]
         public void Setup()
         {
-            _dataRepository = new DataRepository(new WypelnianieStalymi());
+            _dataRepository = new DataRepository(new ConstantDataFiller());
         }
 
         [Test]

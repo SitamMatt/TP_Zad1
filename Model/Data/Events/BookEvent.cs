@@ -1,6 +1,5 @@
 
 using System;
-using Model;
 
 namespace Model.Data.Events
 {

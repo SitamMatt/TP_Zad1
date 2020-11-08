@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Model.Data;
 
-namespace Model
+namespace Model.Fillers
 {
-    public class WypelnianieStalymi : IDataFiller
+    public class ConstantDataFiller : IDataFiller
     {
         public void Fill(DataContext context)
         {

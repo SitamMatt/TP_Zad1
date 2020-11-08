@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Model.Data;
+using Model.Fillers;
 
-namespace Model
+namespace Model.Repository
 {
     public partial class DataRepository
     {
