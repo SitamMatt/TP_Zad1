@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Model.Data;
+using Model.Exceptions;
 
 namespace Model.Repository
 {
@@ -22,17 +23,6 @@ namespace Model.Repository
         public Client GetClient(int key)
         {
             return _context.Clients[key];
-        }
-
-        public void UpdateClient(int key, Client entity)
-        {
-            var originalClient = _context.Clients[key];
-            MapperHelper.Mapper.Map(entity, originalClient);
-        }
-
-        public void DeleteClient(Client client)
-        {
-            _context.Clients.Remove(client);
         }
 
         public IEnumerable<Client> GetAllClient()

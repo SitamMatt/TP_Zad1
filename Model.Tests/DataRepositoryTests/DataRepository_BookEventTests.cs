@@ -2,6 +2,7 @@ using Model.Data;
 using Model.Data.Events;
 using Model.Fillers;
 using Model.Repository;
+using Model.Exceptions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

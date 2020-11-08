@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model.Data;
+using Model.Exceptions;
 
 namespace Model.Repository
 {
@@ -26,20 +27,6 @@ namespace Model.Repository
             ValidateBookCopy(bookCopy);
             bookCopy.Available = true;
             _context.BookCopies.Add(bookCopy);
-        }
-
-        public void UpdateBookCopy(int id, BookCopy bookCopy)
-        {
-            //todo prevent id change
-            //todo observablecollection not triggered
-            var original = GetBookCopy(id);
-            ValidateBookCopy(original);
-            MapperHelper.Mapper.Map(bookCopy, original);
-        }
-
-        public void DeleteBookCopy(BookCopy bookCopy)
-        {
-            _context.BookCopies.Remove(bookCopy);
         }
 
         public IEnumerable<BookCopy> GetAllBookCopies(){

@@ -21,17 +21,6 @@ namespace Model.Repository
             return _context.Books[isbn];
         }
 
-        public void DeleteBook(String isbn)
-        {
-            _context.Books.Remove(isbn);
-        }
-
-        public void UpdateBook(String isbn, Book book)
-        {
-            var originalBook = _context.Books[isbn];
-            MapperHelper.Mapper.Map(book, originalBook);
-        }
-
         public IEnumerable<KeyValuePair<string, Book>> GetAllBooks()
         {
             return _context.Books;
