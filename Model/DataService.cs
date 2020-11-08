@@ -97,20 +97,23 @@ namespace Model
             return IsBookAvailable(book);
         }
 
-        public void GetClientsHoldingCopyFor(TimeSpan duration)
+        public IEnumerable<BookCopy> GetAllCopiesCheckedOutByClient(Client client)
         {
-            // var returns = dataRepository.GetAllBookEvents().Where(x => x is BookReturnEvent);
-            // var checkouts = dataRepository.GetAllBookEvents().Where(x=>x is BookCheckoutEvent)
-            // .Where(x => returns.Where(e=>e.Date > (x.Date + duration)).Min());
-
-        }
-
-        public void GetAllCopiesCheckedOutByClient(Client client)
-        {
-            dataRepository.GetAllBookEvents()
+            return dataRepository.GetAllBookEvents()
             .Where(x=>x is BookCheckoutEvent && x.Client == client)
             .Select(x=>x.BookCopy)
             .Distinct();
+        }
+
+        public void AddNewBookCopy(string isbn, DateTime purchaseDate){
+            var book = dataRepository.GetBook(isbn);
+            if(book == null)
+            throw new BookNotExistException();
+            var bookCopy = new BookCopy{
+                BookDetails = book,
+                PurchaseDate = purchaseDate
+            };
+            dataRepository.AddBookCopy(bookCopy);
         }
     }
 }
