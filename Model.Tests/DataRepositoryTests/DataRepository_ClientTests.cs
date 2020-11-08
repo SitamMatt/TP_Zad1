@@ -13,15 +13,15 @@ namespace Model.Tests
     {
         #region test data
 
-        private Client klient1;
-        private Client klient2;
-        private Client klient3;
+        private Client client1;
+        private Client client2;
+        private Client client3;
 
         public DataRepository_ClientTests()
         {
-            klient1 = new Client("Janusz", "Tracz");
-            klient2 = new Client("Grzegorz", "Brzeczyszczykiewicz");
-            klient3 = new Client("Adam", "Mickiewicz");
+            client1 = new Client("Janusz", "Tracz");
+            client2 = new Client("Grzegorz", "Brzeczyszczykiewicz");
+            client3 = new Client("Adam", "Mickiewicz");
         }
 
         #endregion test data
@@ -30,9 +30,9 @@ namespace Model.Tests
         public void AddClient_DuplicatedItemShouldThrowTest()
         {
             DataContext context = new DataContext();
-            var builder = new ContextBuilder().AddClient(klient1);
+            var builder = new ContextBuilder().AddClient(client1);
             DataRepository dataRepository = new DataRepository(builder);
-            Assert.Throws<DuplicatedItemException>(() => dataRepository.AddClient(klient1));
+            Assert.Throws<DuplicatedItemException>(() => dataRepository.AddClient(client1));
         }
         
         [Test]
@@ -41,40 +41,19 @@ namespace Model.Tests
             DataContext context = new DataContext();
             var builder = new ContextBuilder();
             DataRepository repository = new DataRepository(builder);
-            repository.AddClient(klient1);
-            Assert.AreEqual(repository.GetClient(0), klient1);
+            repository.AddClient(client1);
+            Assert.AreEqual(repository.GetClient(0), client1);
         }
-
-        [Test]
-        public void DeleteClientTest()
-        {
-            DataContext context = new DataContext();
-            var builder = new ContextBuilder();
-            DataRepository repository = new DataRepository(builder);
-            repository.AddClient(klient1);
-            repository.AddClient(klient2);
-            repository.DeleteClient(klient1);
-            Assert.AreNotEqual(repository.GetClient(0), klient1);
-            Assert.AreEqual(repository.GetClient(0), klient2);
-        }
-
-        //[Test]
-        //public void UpdateClientTest()
-        //{
-        //    DataContext context = new DataContext();
-        //    var builder = new ContextBuilder();
-        //    DataRepository repository = new DataRepository(builder);
-        //    repository.AddClient(klient1);
-        //    Assert.AreEqual(repository.GetClient(0), klient1);
-        //    repository.UpdateClient(0, klient3);
-        //    Assert.AreEqual(repository.GetClient(0).Firstname, klient3.Firstname);
-        //    Assert.AreEqual(repository.GetClient(0).Lastname, klient3.Lastname);
-        //}
 
         [Test]
         public void GetAllClientsTest()
         {
-            //TODO: implementacja
+            var context = new DataContext();
+            var builder = new ContextBuilder()
+            .AddClient(client1)
+            .AddClient(client2);
+            var repository = new DataRepository(builder);
+            CollectionAssert.AreEqual(new List<Client>() { client1, client2 }, repository.GetAllClient());
         }
     }
 }

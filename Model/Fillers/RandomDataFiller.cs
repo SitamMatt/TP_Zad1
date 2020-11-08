@@ -11,6 +11,12 @@ namespace Model.Fillers
 {
     public class RandomDataFiller : IDataFiller
     {
+        public RandomDataFiller(int clientsNumber )
+        {
+            this.clientsNumber = clientsNumber;
+        }
+
+        private int clientsNumber;
         private string[] firstNames = { "Adam", "Albert", "Aleksander", "Andrzej", "Antoni", "Bartłomiej", "Bronisław", "Dariusz",
         "Dawid", "Dominik", "Filip"};
         private string[] lastNames = { "Adamiak", "Boryszewski", "Dąbrowski", "Frączczak", "Gołąb" };
@@ -58,7 +64,7 @@ namespace Model.Fillers
             return (checkout, ret);
         }
 
-        public void Fill(DataContext context, int clientsNumber)
+        public void Fill(DataContext context)
         {
             var clients = new List<Client>();
             var katalogi = new Dictionary<string, Book>();
@@ -81,6 +87,5 @@ namespace Model.Fillers
             context.BookCopies = stany;
             context.Events = zdarzenia;
         }
-
     }
 }

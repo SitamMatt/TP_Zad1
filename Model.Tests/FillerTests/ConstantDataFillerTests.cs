@@ -15,7 +15,6 @@ namespace Model.Tests.FillerTests
 		{
 			DataContext context = new DataContext();
 			ConstantDataFiller filler = new ConstantDataFiller();
-			filler.Fill(context);
 			DataRepository repository = new DataRepository(filler);
 
 			Assert.AreEqual(repository.GetClient(0).Firstname, "Jan");
@@ -33,9 +32,6 @@ namespace Model.Tests.FillerTests
 			Assert.AreEqual(repository.GetBookEvent(0).Client.Lastname, "Kowalski");
 			Assert.AreEqual(repository.GetBookEvent(1).Date, DateTime.Parse("2018-06-01"));
 			Assert.AreEqual(repository.GetBookEvent(2).BookCopy.PurchaseDate, DateTime.Parse("2006-08-01"));
-
-
-
 		}
 	}
 }

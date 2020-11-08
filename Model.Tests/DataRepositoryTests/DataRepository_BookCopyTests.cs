@@ -66,5 +66,19 @@ namespace Model.Tests
             var invalidBookCopy = copy1.CloneWith(x=>x.BookDetails, bookNotExistingInContext);
             Assert.Throws<InvalidModelException>(() => repository.AddBookCopy(invalidBookCopy));
         }
+
+        [Test]
+        public void GetAllBookCopiesTest()
+        {
+            var c1 = copy1.Clone();
+            var c2 = copy1.Clone();
+            DataContext context = new DataContext();
+            var builder = new ContextBuilder()
+            .AddBook("isb-666", book1.Clone())
+            .AddBookCopy("isb-666", c1)
+            .AddBookCopy("isb-666", c2);
+            DataRepository repository = new DataRepository(builder);
+            CollectionAssert.AreEqual(new List<BookCopy>() { c1, c2 }, repository.GetAllBookCopies());
+        }
     }
 }

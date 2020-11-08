@@ -25,17 +25,6 @@ namespace Model.Repository
             return _context.Clients[key];
         }
 
-        public void UpdateClient(int key, Client entity)
-        {
-            var originalClient = _context.Clients[key];
-            MapperHelper.Mapper.Map(entity, originalClient);
-        }
-
-        public void DeleteClient(Client client)
-        {
-            _context.Clients.Remove(client);
-        }
-
         public IEnumerable<Client> GetAllClient()
         {
             return _context.Clients;

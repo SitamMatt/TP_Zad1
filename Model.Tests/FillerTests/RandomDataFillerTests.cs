@@ -15,8 +15,7 @@ namespace Model.Tests.FillerTests
         public void RandomDataFillerCorrectness()
         {
             DataContext context = new DataContext();
-            RandomDataFiller filler = new RandomDataFiller();
-            filler.Fill(context, 4);
+            RandomDataFiller filler = new RandomDataFiller(4);
             DataRepository repository = new DataRepository(filler);
 
             Assert.AreEqual(4, repository.GetAllClient().Count());

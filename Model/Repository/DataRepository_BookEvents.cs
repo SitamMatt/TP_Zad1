@@ -45,12 +45,6 @@ namespace Model.Repository
             _context.Events.Add(bookEvent);
         }
 
-        public void DeleteCheckout(BookEvent bookEvent)
-        {
-            // todo remove check
-            _context.Events.Remove(bookEvent);
-        }
-
         public IEnumerable<BookEvent> GetAllBookEvents()
         {
             return _context.Events;
