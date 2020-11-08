@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Utils;
+using Model.Exceptions;
 
 namespace Model.Tests
 {

@@ -18,12 +18,7 @@ namespace Model.Tests
         [Test]
         public void WykazAddTest()
         {
-            var wykaz = new Client
-            {
-                ID = 5,
-                Firstname = "Jacek",
-                Lastname = "Robocznik"
-            };
+            var wykaz = new Client("Jacek", "Robocznik");
             //Assert.Null(_dataRepository.GetWykaz(5));
             //_dataRepository.AddWykaz(wykaz);
             //Assert.NotNull(_dataRepository.GetWykaz(5));

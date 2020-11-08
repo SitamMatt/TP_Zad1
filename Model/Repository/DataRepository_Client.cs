@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Model.Data;
+using Model.Exceptions;
 
 namespace Model.Repository
 {

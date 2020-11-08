@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using Model.Data;
 using Model.Data.Events;
+using Model.Fillers;
+using Utils;
+
 
 namespace Model.Tests
 {
@@ -38,7 +41,7 @@ namespace Model.Tests
         public ContextBuilder AddBookCopy(string bookKey, BookCopy bookCopy)
         {
             var book = Books[bookKey];
-            bookCopy.BookDetails = book;
+            bookCopy.With(x => x.BookDetails, book);
             BookCopies.Add(bookCopy);
             return this;
         }

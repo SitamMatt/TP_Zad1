@@ -16,25 +16,22 @@ namespace Model.Fillers
 
         private Random rnd = new Random();
 
+        public DateTime randomDay(DateTime startDay)
+        {
+            int range = (DateTime.Today - startDay).Days;
+            return startDay.AddDays(rnd.Next(range));
+        }
+
         public Client fillClientData()
         {
-            Client cl = new Client
-            {
-                Firstname = firstNames[rnd.Next(firstNames.Length)],
-                Lastname = lastNames[rnd.Next(lastNames.Length)]
-            };
-
+            Client cl = new Client(firstNames[rnd.Next(firstNames.Length)], lastNames[rnd.Next(lastNames.Length)]);
             return cl;
         }
 
         public Book fillBookData()
         {
-            Book book = new Book
-            {
-                Author = firstNames[rnd.Next(firstNames.Length)] + lastNames[rnd.Next(lastNames.Length)],
-                Title = titles[rnd.Next(titles.Length)],
-                PageCount = rnd.Next(100, 1000)
-            };
+            Book book = new Book(titles[rnd.Next(titles.Length)], randomDay(new DateTime(1997, 1, 1)),
+                (firstNames[rnd.Next(firstNames.Length)] + " " + lastNames[rnd.Next(lastNames.Length)]), "brak opisu", rnd.Next(30, 1000));
             return book;
         }
     }
