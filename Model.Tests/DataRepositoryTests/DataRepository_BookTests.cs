@@ -12,21 +12,25 @@ namespace Model.Tests
     {
         #region test data
 
-        private Book book1 = new Book
-        {
-            Title = "Balladyna",
-            Author = "Juliusz Słowacki",
-            PageCount = 213,
-            Description = "Przykładowy opis"
-        };
+        private Book book1;
+        private Book book2;
 
-        private Book book2 = new Book
+        public DataRepository_BookTests()
         {
-            Title = "Pan Tadeusz",
-            Author = "Adam Mickiewicz",
-            PageCount = 356,
-            Description = "Jacek Soplica REEE"
-        };
+            book1 = new Book(
+                "Balladyna",
+                DateTime.Parse("2017-06-09"),
+                "Juliusz Słowacki",
+                "Opis",
+                213);
+
+            book2 = new Book(
+                "Pan Tadeusz",
+                DateTime.Parse("2014-06-09"),
+                "Adam Mickiewicz",
+                "Jacek Soplica",
+                356);
+        }
 
         #endregion test data
 

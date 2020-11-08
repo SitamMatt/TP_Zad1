@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Model.Data
 {
     public class BookCopy
     {
-        //TODO: Decide if it should keep some id of book not the reference
-        public Book BookDetails { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        public BookCopy(Book bookDetails, DateTime purchaseDate)
+        {
+            this.BookDetails = bookDetails;
+            this.PurchaseDate = purchaseDate;
+        }
+        public Book BookDetails { get; }
+        public DateTime PurchaseDate { get; }
         public bool Available { get; set; }
     }
 }

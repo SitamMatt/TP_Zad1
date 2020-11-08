@@ -14,46 +14,53 @@ namespace Model.Tests
     {
         #region test data
 
-        private Book book1 = new Book
-        {
-            Author = "Jan",
-            Description = "Opis",
-            PageCount = 4,
-            Title = "Taniec z gwiazdami"
-        };
-
-        private BookCopy copy1 = new BookCopy
-        {
-            Available = true,
-            PurchaseDate = DateTime.UtcNow
-        };
-
-        private Client client1 = new Client
-        {
-            Firstname = "Jacek",
-            Lastname = "Hyży"
-        };
-
+        private Book book1;
+        private BookCopy copy1;
+        private Client client1;
         private BookEvent event1;
         private BookEvent event2;
         private BookEvent event3;
         private BookEvent event4;
-
         private List<BookEvent> events;
-
 
         public DataRepository_BookEventTests()
         {
-            event1 = new BookCheckoutEvent(client1, copy1, DateTime.Now);
-            event1 = new BookReturnEvent(client1, copy1, DateTime.Now);
-            event1 = new BookCheckoutEvent(client1.Clone(), copy1.Clone(), DateTime.Now);
-            event1 = new BookCheckoutEvent(client1.Clone(), copy1.Clone(), DateTime.Now);
+            book1 = new Book(
+                "Taniec z gwiazdami",
+                DateTime.Parse("2005-08-25"),
+                "Jan",
+                "Opis",
+                4);
+
+            copy1 = new BookCopy(
+                book1,
+                DateTime.Now);
+
+            client1 = new Client(
+                "Jacek",
+                "Hyży");
+
+            event1 = new BookCheckoutEvent(
+                client1,
+                copy1,
+                DateTime.Now);
+            event1 = new BookReturnEvent(
+                client1,
+                copy1,
+                DateTime.Now);
+            event1 = new BookCheckoutEvent(
+                client1.Clone(),
+                copy1.Clone(),
+                DateTime.Now);
+            event1 = new BookCheckoutEvent(
+                client1.Clone(),
+                copy1.Clone(),
+                DateTime.Now);
 
             events = new List<BookEvent>(){
                 event1, event2, event3, event4
             };
         }
-
 
         #endregion test data
 

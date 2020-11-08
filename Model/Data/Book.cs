@@ -1,15 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Model.Data
 {
     public class Book
     {
-        public string Title { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        public string Author { get; set; }
-        public string Description { get; set; }
-        public int PageCount { get; set; }
+        public Book(string title, DateTime releaseDate, string author, string description, int pageCount)
+        {
+            this.Title = title;
+            this.ReleaseDate = releaseDate;
+            this.Author = author;
+            this.Description = description;
+            this.PageCount = pageCount;
+
+        }
+        public string Title { get; }
+        public DateTime ReleaseDate { get; }
+        public string Author { get; }
+        public string Description { get; }
+        public int PageCount { get; }
     }
 }

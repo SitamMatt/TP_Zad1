@@ -1,10 +1,13 @@
-﻿using System;
-
-namespace Model.Data
+﻿namespace Model.Data
 {
     public class Client
     {
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
+        public Client(string firstname, string lastname)
+        {
+            this.Firstname = firstname;
+            this.Lastname = lastname;
+        }
+        public string Firstname { get; }
+        public string Lastname { get; }
     }
 }

@@ -13,19 +13,22 @@ namespace Model.Tests
     {
         #region test data
 
-        private Book book1 = new Book
-        {
-            Author = "Jan",
-            Description = "Opis",
-            PageCount = 4,
-            Title = "Taniec z gwiazdami"
-        };
+        private Book book1;
 
-        private BookCopy copy1 = new BookCopy
+        private BookCopy copy1;
+
+        public DataRepository_BookCopyTests()
         {
-            Available = true,
-            PurchaseDate = DateTime.UtcNow
-        };
+            book1 = new Book(
+                "Taniec z gwiazdami",
+                DateTime.Parse("2010-05-06"),
+                "Jan",
+                "Opis",
+                4);
+            copy1 = new BookCopy(
+                book1,
+                DateTime.Now);
+        }
 
         #endregion test data
 

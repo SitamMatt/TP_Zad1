@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Model
+namespace Model.Exceptions
 {
     [Serializable]
     public class BookNotExistException : Exception
