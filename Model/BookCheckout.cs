@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Model
 {
+    // todo remove when 0 refs
     public class BookCheckout
     {
         public Client Client { get; set; }

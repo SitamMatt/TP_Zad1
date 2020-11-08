@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Model.Data.Events;
+using Utils;
 namespace Model
 {
     public abstract class DataService : IDataService
@@ -26,47 +27,41 @@ namespace Model
 
         public void CheckoutBook(Client client, BookCopy bookCopy)
         {
-            var clientExists = dataRepository.GetClient(client.ID);
-            var copyExists = dataRepository.GetBookCopy(bookCopy.CopyID);
-            if (clientExists != null && copyExists != null && copyExists.Available)
-            {
-                var checkout = new BookCheckout
-                {
-                    BookCopy = copyExists,
-                    Client = clientExists,
-                    CheckoutDate = DateTime.Now
-                };
-                dataRepository.AddCheckout(checkout);
-            }
+            var bookEvent = new BookCheckoutEvent{
+                Date = DateTime.UtcNow,
+                BookCopy = bookCopy,
+                Client = client
+            };
+            dataRepository.AddBookEvent(bookEvent);
         }
 
         public void ReturnBook(BookCopy bookCopy)
         {
-            var checkout = dataRepository.FindBookCheckout(x => x.BookCopy.CopyID == bookCopy.CopyID);
-            if (!checkout.BookCopy.Available)
-            {
-
-            }
+            var bookEvent = new BookReturnEvent{
+                Date = DateTime.UtcNow,
+                BookCopy = bookCopy,
+            };
+            dataRepository.AddBookEvent(bookEvent);
         }
 
-        public void ReturnBook(BookCheckout lending)
+        public IEnumerable<BookCopy> GetAllBookCopies(Book book)
         {
-            throw new NotImplementedException();
+            return dataRepository.GetAllBookCopies()
+            .Where(x=>x.BookDetails == book);
         }
 
-        public void GetAllBookCopies(Book book)
+        public IEnumerable<BookCopy> GetAllBookCopies(string isbn)
         {
-            throw new NotImplementedException();
+            var book = dataRepository.GetBook(isbn);
+            return GetAllBookCopies(book);
         }
 
-        public void GetAllBookCopies(string isbn)
+        public IEnumerable<BookCheckoutEvent> GetLendingsBetween(DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
-        }
-
-        public void GetRentalsBetween(DateTime from, DateTime to)
-        {
-            throw new NotImplementedException();
+            return dataRepository.GetAllBookEvents()
+            .Where(x => x is BookCheckoutEvent)
+            .Where(x => x.Date.IsBetween(from, to))
+            .Cast<BookCheckoutEvent>();
         }
 
         public void GetAllBooks()
@@ -74,39 +69,33 @@ namespace Model
             throw new NotImplementedException();
         }
 
-        public void GetAvailableBooks()
+        public IEnumerable<Book> GetAvailableBooks()
         {
-            throw new NotImplementedException();
+            return dataRepository.GetAllBookCopies()
+            .Where(x=>x.Available)
+            .Select(x=>x.BookDetails)
+            .Distinct();
         }
 
-        public void IsBookAvailable(Book book)
+        public bool IsBookAvailable(Book book)
         {
-            throw new NotImplementedException();
+            return dataRepository.GetAllBookCopies()
+            .Any(x=>x.BookDetails == book && x.Available);
         }
 
-        public void IsBookAvailable(string isbn)
+        public bool IsBookAvailable(string isbn)
         {
-            throw new NotImplementedException();
+            var book = dataRepository.GetBook(isbn);
+            return IsBookAvailable(book);
         }
 
-        public void GetNearestAvailabilityDate(Book book)
+        public void GetClientsHoldingCopyFor(TimeSpan duration)
         {
-            throw new NotImplementedException();
-        }
 
-        public void GetNearestAvailabilityDate(string isbn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetUsersHoldingCopyFor(TimeSpan duration)
-        {
-            throw new NotImplementedException();
         }
 
         public void GetAllRentalsForClient(Client client)
         {
-            throw new NotImplementedException();
         }
     }
 }

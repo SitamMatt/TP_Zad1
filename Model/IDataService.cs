@@ -16,7 +16,7 @@ namespace Model
 
         void GetAllBookCopies(string isbn);
 
-        void GetRentalsBetween(DateTime from, DateTime to);
+        void GetLendingsBetween(DateTime from, DateTime to);
 
         void GetAllBooks();
 
@@ -30,7 +30,7 @@ namespace Model
 
         void GetNearestAvailabilityDate(string isbn);
 
-        void GetUsersHoldingCopyFor(TimeSpan duration);
+        void GetClientsHoldingCopyFor(TimeSpan duration);
 
         void GetAllRentalsForClient(Client client);
     }

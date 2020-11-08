@@ -43,5 +43,9 @@ namespace Model
         {
             _context.BookCopies.Remove(bookCopy);
         }
+
+        public IEnumerable<BookCopy> GetAllBookCopies(){
+            return _context.BookCopies;
+        }
     }
 }
