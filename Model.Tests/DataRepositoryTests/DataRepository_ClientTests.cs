@@ -11,33 +11,19 @@ namespace Model.Tests
     class DataRepository_ClientTests
     {
         #region test data
-        private Client klient1 = new Client
-        {
-            ID = 1,
-            Firstname = "Janusz",
-            Lastname = "Tracz"
-        };
 
-        private Client klientDuplicatedId = new Client
-        {
-            ID = 1,
-            Firstname = "Andrzej",
-            Lastname = "Adamiak"
-        };
+        private Client klient1;
+        private Client klientDuplicatedId;
+        private Client klient2;
+        private Client klient3;
 
-        private Client klient2 = new Client
+        public DataRepository_ClientTests()
         {
-            ID = 23,
-            Firstname = "Grzegorz",
-            Lastname = "Brzeczyszczykiewicz"
-        };
-
-        private Client klient3 = new Client
-        {
-            ID = 4,
-            Firstname = "Adam",
-            Lastname = "Mickiewicz"
-        };
+            klient1 = new Client("Janusz", "Tracz");
+            klientDuplicatedId = new Client("Andrzej", "Adamiak");
+            klient2 = new Client("Grzegorz", "Brzeczyszczykiewicz");
+            klient3 = new Client("Adam", "Mickiewicz");
+        }
 
         #endregion test data
 
@@ -58,7 +44,6 @@ namespace Model.Tests
             var builder = new ContextBuilder();
             DataRepository repository = new DataRepository(builder);
             repository.AddClient(klient1);
-            Assert.AreEqual(repository.GetClientById(1), klient1);
             Assert.AreEqual(repository.GetClient(0), klient1);
         }
 
@@ -70,11 +55,9 @@ namespace Model.Tests
             DataRepository repository = new DataRepository(builder);
             repository.AddClient(klient1);
             repository.AddClient(klient2);
-            Assert.AreEqual(repository.GetClientById(1), klient1);
             repository.DeleteClient(klient1);
             Assert.AreNotEqual(repository.GetClient(0), klient1);
             Assert.AreEqual(repository.GetClient(0), klient2);
-            Assert.AreEqual(repository.GetClientById(1), null);
         }
 
         [Test]
@@ -86,7 +69,6 @@ namespace Model.Tests
             repository.AddClient(klient1);
             Assert.AreEqual(repository.GetClient(0), klient1);
             repository.UpdateClient(0, klient3);
-            Assert.AreEqual(repository.GetClient(0).ID, klient3.ID);
             Assert.AreEqual(repository.GetClient(0).Firstname, klient3.Firstname);
             Assert.AreEqual(repository.GetClient(0).Lastname, klient3.Lastname);
         }

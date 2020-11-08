@@ -6,7 +6,7 @@ using System.Text;
 using Model.Data;
 using Model.Data.Events;
 
-namespace Model.Fillers
+namespace Model.Tests
 {
     public class ContextBuilder : IDataFiller
     {

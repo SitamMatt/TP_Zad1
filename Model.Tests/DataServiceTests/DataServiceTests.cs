@@ -1,3 +1,5 @@
+using NUnit.Framework;
+
 namespace Model.Tests.DataServiceTests
 {
 	public class DataServiceTests
@@ -8,7 +10,7 @@ namespace Model.Tests.DataServiceTests
         }
 
         [Test]
-        public void CheckoutBookTest{
+        public void CheckoutBookTest(){
 
         }
 

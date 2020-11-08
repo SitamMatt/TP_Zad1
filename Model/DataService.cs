@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Model.Data;
 using Model.Data.Events;
+using Model.Exceptions;
 using Model.Repository;
 using Utils;
 namespace Model
@@ -19,11 +20,9 @@ namespace Model
 
         public void AddClient(string firstname, string lastname)
         {
-            var client = new Client
-            {
-                Firstname = firstname,
-                Lastname = lastname
-            };
+            var client = new Client(
+                firstname,
+                lastname);
             dataRepository.AddClient(client);
         }
 
@@ -109,10 +108,9 @@ namespace Model
             var book = dataRepository.GetBook(isbn);
             if(book == null)
             throw new BookNotExistException();
-            var bookCopy = new BookCopy{
-                BookDetails = book,
-                PurchaseDate = purchaseDate
-            };
+            var bookCopy = new BookCopy(
+                book,
+                purchaseDate);
             dataRepository.AddBookCopy(bookCopy);
         }
     }
