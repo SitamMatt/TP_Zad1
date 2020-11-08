@@ -54,5 +54,19 @@ namespace Model.Tests
             DataRepository repository = new DataRepository(builder);
             Assert.AreEqual(repository.GetBook("978-2-21-15432-0"), book1);
         }
+
+        [Test]
+        public void GetAllBooksTest(){
+            DataContext context = new DataContext();
+            var builder = new ContextBuilder()
+            .AddBook("978-2-21-15432-0" ,book1)
+            .AddBook("isbn-666" ,book2);
+            DataRepository repository = new DataRepository(builder);
+            var expected = new List<KeyValuePair<string, Book>>(){
+                new KeyValuePair<string, Book>("978-2-21-15432-0" ,book1),
+                new KeyValuePair<string, Book>("isbn-666" ,book2)
+            };
+            CollectionAssert.AreEqual(expected, repository.GetAllBooks());
+        }
     }
 }

@@ -33,7 +33,6 @@ public class Book
 ```csharp
 public class BookCopy
 {
-    //TODO: Decide if it should keep some id of book not the reference
     public Book BookDetails { get; set; }
     public int CopyID { get; set; }
     public DateTime PurchaseDate { get; set; }
