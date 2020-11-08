@@ -5,7 +5,6 @@ using Model.Data;
 using Model.Fillers;
 using Model.Repository;
 using NUnit.Framework;
-using Model.Exceptions;
 
 namespace Model.Tests
 {
@@ -14,14 +13,12 @@ namespace Model.Tests
         #region test data
 
         private Client klient1;
-        private Client klientDuplicatedId;
         private Client klient2;
         private Client klient3;
 
         public DataRepository_ClientTests()
         {
             klient1 = new Client("Janusz", "Tracz");
-            klientDuplicatedId = new Client("Andrzej", "Adamiak");
             klient2 = new Client("Grzegorz", "Brzeczyszczykiewicz");
             klient3 = new Client("Adam", "Mickiewicz");
         }
@@ -60,18 +57,18 @@ namespace Model.Tests
             Assert.AreEqual(repository.GetClient(0), klient2);
         }
 
-        [Test]
-        public void UpdateClientTest()
-        {
-            /*DataContext context = new DataContext();
-            var builder = new ContextBuilder();
-            DataRepository repository = new DataRepository(builder);
-            repository.AddClient(klient1);
-            Assert.AreEqual(repository.GetClient(0), klient1);
-            repository.UpdateClient(0, klient3);
-            Assert.AreEqual(repository.GetClient(0).Firstname, klient3.Firstname);
-            Assert.AreEqual(repository.GetClient(0).Lastname, klient3.Lastname);*/
-        }
+        //[Test]
+        //public void UpdateClientTest()
+        //{
+        //    DataContext context = new DataContext();
+        //    var builder = new ContextBuilder();
+        //    DataRepository repository = new DataRepository(builder);
+        //    repository.AddClient(klient1);
+        //    Assert.AreEqual(repository.GetClient(0), klient1);
+        //    repository.UpdateClient(0, klient3);
+        //    Assert.AreEqual(repository.GetClient(0).Firstname, klient3.Firstname);
+        //    Assert.AreEqual(repository.GetClient(0).Lastname, klient3.Lastname);
+        //}
 
         [Test]
         public void GetAllClientsTest()

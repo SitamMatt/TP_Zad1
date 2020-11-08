@@ -13,7 +13,7 @@ namespace Model.Data
             this.PageCount = pageCount;
 
         }
-        public string Title { get; }
+        public string Title { get; private set; }
         public DateTime ReleaseDate { get; }
         public string Author { get; }
         public string Description { get; }

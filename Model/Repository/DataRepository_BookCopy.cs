@@ -9,9 +9,9 @@ namespace Model.Repository
 {
     public partial class DataRepository
     {
-        public BookCopy GetBookCopy(int id)
+        public BookCopy GetBookCopy(int index)
         {
-            return _context.BookCopies[id];
+            return _context.BookCopies[index];
         }
 
         private void ValidateBookCopy(BookCopy bookCopy)
