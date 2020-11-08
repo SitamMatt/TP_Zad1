@@ -38,13 +38,13 @@ namespace Model
 
         public void ReturnBook(BookCopy bookCopy)
         {
-            var checkoutEvenet = dataRepository.GetAllBookEvents()
+            var checkoutEvents = dataRepository.GetAllBookEvents()
             .Where(x => x is BookCheckoutEvent && x.BookCopy == bookCopy)
             .OrderByDescending(x => x.Date)
             .FirstOrDefault();
             var bookEvent = new BookReturnEvent
             (
-                checkoutEvenet.Client,
+                checkoutEvents.Client,
                 bookCopy,
                 DateTime.UtcNow
             );
@@ -71,7 +71,7 @@ namespace Model
             .Cast<BookCheckoutEvent>();
         }
 
-        public IEnumerable<Book> GetAllBooks()
+        public IEnumerable<KeyValuePair<string, Book>> GetAllBooks()
         {
             return dataRepository.GetAllBooks();
         }

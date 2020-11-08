@@ -18,7 +18,7 @@ namespace Model.Repository
         void DeleteClient(Client client);
         IEnumerable<BookCopy> GetAllBookCopies();
         IEnumerable<BookEvent> GetAllBookEvents();
-        IEnumerable<Book> GetAllBooks();
+        IEnumerable<KeyValuePair<string, Book>> GetAllBooks();
         IEnumerable<Client> GetAllClient();
         Book GetBook(string isbn);
         BookCopy GetBookCopy(int index);

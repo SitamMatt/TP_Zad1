@@ -32,9 +32,9 @@ namespace Model.Repository
             MapperHelper.Mapper.Map(book, originalBook);
         }
 
-        public IEnumerable<Book> GetAllBooks()
+        public IEnumerable<KeyValuePair<string, Book>> GetAllBooks()
         {
-            return _context.Books.Values;
+            return _context.Books;
         }
     }
 }
