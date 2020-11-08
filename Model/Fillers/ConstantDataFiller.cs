@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Model.Data;
+using Model.Data.Events;
 
 namespace Model.Fillers
 {
@@ -46,42 +47,30 @@ namespace Model.Fillers
             var stany = new ObservableCollection<BookCopy>();
             var opis1 = new BookCopy
             {
-                CopyID = 1,
                 PurchaseDate = DateTime.Parse("2004-04-07")
             };
             stany.Add(opis1);
             var opis2 = new BookCopy
             {
-                CopyID = 2,
                 PurchaseDate = DateTime.Parse("2005-09-01")
             };
             stany.Add(opis2);
             var opis3 = new BookCopy
             {
-                CopyID = 3,
                 PurchaseDate = DateTime.Parse("2006-08-01")
             };
             stany.Add(opis3);
-            var zdarzenia = new ObservableCollection<BookCheckout>();
-            var zdarz1 = new BookCheckout
-            {
-                CheckoutDate = DateTime.Parse("2018-04-01"),
-                ReturnDate = DateTime.Parse("2018-06-01"),
-                BookCopy = opis1,
-                Client = wykaz1
-            };
+            var zdarzenia = new ObservableCollection<BookEvent>();
+            var zdarz1 = new BookCheckoutEvent(wykaz1, opis1, DateTime.Parse("2018-04-01"));
+            var zdarz3 = new BookReturnEvent(wykaz1, opis1, DateTime.Parse("2018-06-01"));
             zdarzenia.Add(zdarz1);
-            var zdarz2 = new BookCheckout
-            {
-                CheckoutDate = DateTime.Parse("2020-08-01"),
-                BookCopy = opis3,
-                Client = wykaz2
-            };
+            zdarzenia.Add(zdarz3);
+            var zdarz2 = new BookCheckoutEvent(wykaz2, opis3, DateTime.Parse("2020-08-01"));
             zdarzenia.Add(zdarz2);
             context.Clients = clients;
             context.Books = katalogi;
             context.BookCopies = stany;
-            context.Lendings = zdarzenia;
+            context.Events = zdarzenia;
         }
     }
 }
