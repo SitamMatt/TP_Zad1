@@ -11,17 +11,21 @@ namespace Model.Fillers
 {
     public class RandomDataFiller : IDataFiller
     {
-        public RandomDataFiller(int clientsNumber )
+        public RandomDataFiller(int clientsNumber, int stringLen, int books, int bookCopies, DateTime date)
         {
             this.clientsNumber = clientsNumber;
+            this.ranStrLen = stringLen;
+            this.booksNumber = books;
+            this.copiesPerBookNumber = bookCopies;
+            this.startDate = date;
         }
 
         private int clientsNumber;
-        private string[] firstNames = { "Adam", "Albert", "Aleksander", "Andrzej", "Antoni", "Bartłomiej", "Bronisław", "Dariusz",
-        "Dawid", "Dominik", "Filip"};
-        private string[] lastNames = { "Adamiak", "Boryszewski", "Dąbrowski", "Frączczak", "Gołąb" };
-        private string[] titles = { "Duma i uprzedzenie", "Ania z Zielonego Wzgórza", "Władca Pierścieni", "Lśnienie", "Zielona Mila", "Don Kichot",
-        "Przygody Tomka Sawyera", "Podróże Guliwera", "Podróż do wnętrza Ziemi", "Wichrowe Wzgórza"};
+        private int ranStrLen;
+        private int booksNumber;
+        private int copiesPerBookNumber;
+        private int checkoutPerUserNumber;
+        private DateTime startDate;
 
         private Random rnd = new Random();
 
@@ -40,26 +44,26 @@ namespace Model.Fillers
 
         public Client fillClientData()
         {
-            Client cl = new Client(firstNames[rnd.Next(firstNames.Length)], lastNames[rnd.Next(lastNames.Length)]);
+            Client cl = new Client(RandomString(ranStrLen), RandomString(ranStrLen));
             return cl;
         }
 
         public Book fillBookData()
         {
-            Book book = new Book(titles[rnd.Next(titles.Length)], randomDay(new DateTime(1997, 1, 1)),
-                (firstNames[rnd.Next(firstNames.Length)] + " " + lastNames[rnd.Next(lastNames.Length)]), "brak opisu", rnd.Next(30, 1000));
+            Book book = new Book(RandomString(ranStrLen), randomDay(startDate),
+                (RandomString(ranStrLen) + " " + RandomString(ranStrLen)), RandomString(ranStrLen), rnd.Next(30, 1000));
             return book;
         }
 
         public BookCopy fillBookCopyData(Book book)
         {
-            BookCopy copy = new BookCopy(book, randomDay(new DateTime(1996, 1, 1)));
+            BookCopy copy = new BookCopy(book, randomDay(startDate));
             return copy;
         }
 
         public (BookCheckoutEvent, BookReturnEvent) fillBookEventData(Client client, BookCopy copy) 
         {
-            BookCheckoutEvent checkout = new BookCheckoutEvent(client, copy, randomDay(new DateTime(1996, 1, 1)));
+            BookCheckoutEvent checkout = new BookCheckoutEvent(client, copy, randomDay(startDate));
             BookReturnEvent ret = new BookReturnEvent(client, copy, randomDay(checkout.Date));
             return (checkout, ret);
         }
@@ -72,12 +76,18 @@ namespace Model.Fillers
             var zdarzenia = new ObservableCollection<BookEvent>();
             for (int i=0; i<clientsNumber; i++)
             {
-                String isbn = RandomString(13);
                 clients.Add(fillClientData());
-                katalogi.Add(isbn ,fillBookData());
-                stany.Add(fillBookCopyData(katalogi[isbn]));
-                stany.Add(fillBookCopyData(katalogi[isbn]));
-                (BookCheckoutEvent, BookReturnEvent) events = fillBookEventData(clients[i], stany[2*i]);
+            }
+
+            for (int i =0; i<booksNumber; i++)
+            {
+                String isbn = RandomString(13);
+                katalogi.Add(isbn, fillBookData());
+                for (int j = 0; j<copiesPerBookNumber; j++)
+                {
+                    stany.Add(fillBookCopyData(katalogi[isbn]));
+                }
+                (BookCheckoutEvent, BookReturnEvent) events = fillBookEventData(clients[i], stany[2 * i]);
                 zdarzenia.Add(events.Item1);
                 zdarzenia.Add(events.Item2);
             }
